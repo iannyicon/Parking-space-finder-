@@ -1,79 +1,114 @@
 {
-    "parkingSpots": [
-      {
-        "id": 1,
-        "name": "NAIROBI CENTRAL PARKING",
-        "type": "garage",
-        "location": {
-          "lat": -1.286389,
-          "lng": 36.817223
-        },
-        "price": 250,
-        "spaces": 150,
-        "available": 45,
-        "address": "CBD, NAIROBI",
-        "operator": "CITY PARKING LTD",
-        "hours": "24/7"
-      },
-      {
-        "id": 2,
-        "name": "WESTLANDS MALL PARKING",
-        "type": "lot",
-        "location": {
-          "lat": -1.265,
-          "lng": 36.805
-        },
-        "price": 200,
-        "spaces": 200,
-        "available": 80,
-        "address": "WESTLANDS, NAIROBI",
-        "operator": "SAFEPARK KENYA",
-        "hours": "6AM-10PM"
-      },
-      {
-        "id": 3,
-        "name": "KENYATTA AVENUE PARKING",
-        "type": "street",
-        "location": {
-          "lat": -1.292,
-          "lng": 36.821
-        },
-        "price": 150,
-        "spaces": 50,
-        "available": 15,
-        "address": "CITY CENTER, NAIROBI",
-        "operator": "NAIROBI CITY COUNCIL",
-        "hours": "8AM-6PM"
-      },
-      {
-        "id": 4,
-        "name": "YAYA CENTER PARKING",
-        "type": "garage",
-        "location": {
-          "lat": -1.301,
-          "lng": 36.781
-        },
-        "price": 180,
-        "spaces": 120,
-        "available": 40,
-        "address": "KILIMANI, NAIROBI",
-        "operator": "YAYA SECURITY",
-        "hours": "7AM-9PM"
-      },
-      {
-        "id": 5,
-        "name": "THIKA ROAD MALL PARKING",
-        "type": "lot",
-        "location": {
-          "lat": -1.214,
-          "lng": 36.889
-        },
-        "price": 150,
-        "spaces": 300,
-        "available": 120,
-        "address": "THIKA ROAD, NAIROBI",
-        "operator": "TRM SECURITY",
-        "hours": "6AM-11PM"
-      }
-    ]
-  }
+  "parkingSpots": [
+    {
+      "id": 1,
+      "name": "Westgate Mall Parking",
+      "destination": "Westgate Mall",
+      "address": "Mwanzi Road, Westlands",
+      "price": 200,
+      "distance": "0.5 km",
+      "capacity": 120,
+      "security": true,
+      "image": "./images/westgate.jpg"
+    },
+    {
+      "id": 2,
+      "name": "JKIA Terminal 1A",
+      "destination": "Jomo Kenyatta Airport",
+      "address": "Airport North Road, Embakasi",
+      "price": 300,
+      "distance": "12 km",
+      "capacity": 500,
+      "security": true,
+      "image": "./images/jkia.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Two Rivers Open Lot",
+      "destination": "Two Rivers Mall",
+      "address": "Limuru Road, Gigiri",
+      "price": 150,
+      "distance": "8 km",
+      "capacity": 80,
+      "security": false,
+      "image": "./images/Two Rivers Mall.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Nairobi National Museum Parking",
+      "destination": "Nairobi National Museum",
+      "address": "Museum Hill Road",
+      "price": 100,
+      "distance": "3 km",
+      "capacity": 60,
+      "security": true,
+      "image": "./images/Nairobi National Museum.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Uhuru Park Secure Parking",
+      "destination": "Uhuru Park",
+      "address": "Kenyatta Avenue, CBD",
+      "price": 50,
+      "distance": "1 km",
+      "capacity": 40,
+      "security": true,
+      "image": "./images/Uhuru Park.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Village Market Underground",
+      "destination": "Village Market",
+      "address": "Limuru Road, Gigiri",
+      "price": 250,
+      "distance": "7 km",
+      "capacity": 200,
+      "security": true,
+      "image": "./images/Village Market Underground.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Garden City Rooftop",
+      "destination": "Garden City Mall",
+      "address": "Thika Road",
+      "price": 180,
+      "distance": "6 km",
+      "capacity": 150,
+      "security": true,
+      "image": "./images/Garden City Mall.jpg"
+    },
+    {
+      "id": 8,
+      "name": "KICC Parking",
+      "destination": "Kenyatta International Convention Centre",
+      "address": "Harambee Avenue, CBD",
+      "price": 120,
+      "distance": "0.8 km",
+      "capacity": 300,
+      "security": true,
+      "image": "./images/kicc.jpg"
+    },
+    {
+      "id": 9,
+      "name": "The Hub Karen Parking",
+      "destination": "The Hub Karen",
+      "address": "Karen Road",
+      "price": 180,
+      "distance": "10 km",
+      "capacity": 100,
+      "security": true,
+      "image": "./images/The Hub Karen.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Sarit Centre Multi-Level",
+      "destination": "Sarit Centre",
+      "address": "Parklands Road",
+      "price": 160,
+      "distance": "4 km",
+      "capacity": 250,
+      "security": true,
+      "image": "./images/Sarit Centre.jpg"
+    }
+  ]
+}

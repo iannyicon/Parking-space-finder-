@@ -1,192 +1,136 @@
-/**
- * Parking Space Finder Application
- * 
- * Features:
- * - Displays parking locations on an interactive map
- * - Filters parking by type
- * - Dark/light mode toggle
- * - Responsive design
- */
+document.addEventListener('DOMContentLoaded', function() {
+  // Theme Toggle Functionality
+  const themeToggle = document.getElementById('theme-toggle');
+  const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+  
+  // Check for saved theme or use system preference
+  const currentTheme = localStorage.getItem('theme') || 
+                       (prefersDarkScheme.matches ? 'dark' : 'light');
+  
+  // Apply the current theme
+  if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+  }
+  
+  // Toggle between themes
+  themeToggle.addEventListener('click', function() {
+      let theme;
+      if (document.documentElement.getAttribute('data-theme') === 'dark') {
+          document.documentElement.removeAttribute('data-theme');
+          theme = 'light';
+      } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          theme = 'dark';
+      }
+      localStorage.setItem('theme', theme);
+  });
 
-// DOM Elements
-const TYPE_FILTER = document.getElementById('typeFilter');
-const THEME_TOGGLE = document.getElementById('themeToggle');
-const PARKING_LIST = document.getElementById('parkingList');
-const MAP_ELEMENT = document.getElementById('map');
+  // Parking Spot Functionality
+  fetch('db.json')
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          return response.json();
+      })
+      .then(data => {
+          if (!data.parkingSpots || !Array.isArray(data.parkingSpots)) {
+              throw new Error('Invalid data format: parkingSpots array not found');
+          }
+          displayParkingCards(data.parkingSpots);
+          setupSlideshow(data.parkingSpots);
+      })
+      .catch(error => {
+          console.error('Error loading parking data:', error);
+          displayErrorMessage('Failed to load parking data. Please try again later.');
+      });
 
-// Application State
-const state = {
-    map: null,
-    markers: [],
-    parkingData: []
-};
+  function displayParkingCards(parkingSpots) {
+      const container = document.getElementById('parking-cards-container');
+      container.innerHTML = '';
+      
+      parkingSpots.forEach(spot => {
+          const card = document.createElement('div');
+          card.className = 'parking-card';
+          card.innerHTML = `
+              <img src="${spot.image}" alt="${spot.name}" class="parking-image" onerror="this.src='./images/default-parking.jpg'">
+              <div class="parking-info">
+                  <h3>${spot.name}</h3>
+                  <p><strong>Destination:</strong> ${spot.destination}</p>
+                  <p><strong>Security:</strong> ${spot.security ? '✔️ Available' : '❌ Not available'}</p>
+                  <button class="navigate-btn" data-id="${spot.id}">More Info</button>
+              </div>
+          `;
+          container.appendChild(card);
+      });
 
-// Initialize Application
-function initApp() {
-    initMap();
-    loadParkingData();
-    setupEventListeners();
-}
+      document.querySelectorAll('.navigate-btn').forEach(button => {
+          button.addEventListener('click', function() {
+              const spotId = parseInt(this.getAttribute('data-id'));
+              showParkingDetails(spotId);
+          });
+      });
+  }
 
-// Initialize Map
-function initMap() {
-    state.map = L.map(MAP_ELEMENT).setView([-1.286389, 36.817223], 13);
-    
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(state.map);
-}
+  function setupSlideshow(parkingSpots) {
+      const slidesContainer = document.getElementById('parking-slide');
+      const featuredSpots = parkingSpots.slice(0, 3);
+      
+      slidesContainer.innerHTML = '';
+      
+      let currentIndex = 0;
+      const prevBtn = document.querySelector('.prev-btn');
+      const nextBtn = document.querySelector('.next-btn');
 
-// Load Parking Data
-async function loadParkingData() {
-    try {
-        const response = await fetch('http://localhost:3000/parkingSpots');
-        state.parkingData = await response.json();
-        displayParkingSpots(state.parkingData);
-        
-        if (state.parkingData.length > 0) {
-            zoomToMarkers();
-        }
-    } catch (error) {
-        console.error('Error loading parking data:', error);
-        displayError();
-    }
-}
+      function updateSlide() {
+          const spot = featuredSpots[currentIndex];
+          slidesContainer.innerHTML = `
+              <img class="slide-image" src="${spot.image}" alt="${spot.name}" onerror="this.src='./images/default-parking.jpg'">
+              <h3 class="slide-name">${spot.name}</h3>
+          `;
+      }
 
-// Display Parking Spots
-function displayParkingSpots(spots) {
-    clearMarkers();
-    clearParkingList();
-    
-    if (spots.length === 0) {
-        displayNoResults();
-        return;
-    }
-    
-    spots.forEach(spot => {
-        addMarker(spot);
-        addParkingCard(spot);
-    });
-}
+      updateSlide();
 
-// Add Marker to Map
-function addMarker(spot) {
-    const markerIcon = createMarkerIcon(spot);
-    const marker = L.marker([spot.location.lat, spot.location.lng], {
-        icon: markerIcon
-    }).addTo(state.map);
-    
-    marker.bindPopup(createPopupContent(spot));
-    state.markers.push(marker);
-}
+      prevBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex - 1 + featuredSpots.length) % featuredSpots.length;
+          updateSlide();
+      });
 
-// Create Marker Icon
-function createMarkerIcon(spot) {
-    return L.divIcon({
-        className: `marker-icon marker-${spot.type}`,
-        html: `<div>🚗</div><div class="marker-label">${spot.available}</div>`,
-        iconSize: [30, 42],
-        iconAnchor: [15, 42]
-    });
-}
+      nextBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex + 1) % featuredSpots.length;
+          updateSlide();
+      });
+  }
 
-// Create Popup Content
-function createPopupContent(spot) {
-    return `
-        <strong>${spot.name}</strong><br>
-        <strong>Type:</strong> ${spot.type.toUpperCase()}<br>
-        <strong>Price:</strong> KSH ${spot.price}/HR<br>
-        <strong>Available:</strong> ${spot.available}/${spot.spaces}<br>
-        <strong>Address:</strong> ${spot.address}
-    `;
-}
+  function showParkingDetails(id) {
+      fetch('db.json')
+          .then(response => response.json())
+          .then(data => {
+              const parking = data.parkingSpots.find(p => p.id === id);
+              if (parking) {
+                  const details = `
+                      Parking: ${parking.name}
+                      Destination: ${parking.destination}
+                      Address: ${parking.address}
+                      Price: KES ${parking.price}
+                      Distance: ${parking.distance}
+                      Capacity: ${parking.capacity} spots
+                      Security: ${parking.security ? 'Available' : 'Not available'}
+                  `;
+                  alert(details);
+              } else {
+                  alert('Parking spot details not found');
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('Could not load parking details');
+          });
+  }
 
-// Add Parking Card
-function addParkingCard(spot) {
-    const card = document.createElement('article');
-    card.className = 'parking-card';
-    card.innerHTML = `
-        <h3>${spot.name}</h3>
-        <p><strong>TYPE:</strong> ${spot.type.toUpperCase()}</p>
-        <p><strong>PRICE:</strong> <span class="price">KSH ${spot.price}/HR</span></p>
-        <p><strong>AVAILABLE:</strong> ${spot.available}/${spot.spaces} SPACES</p>
-        <p><strong>ADDRESS:</strong> ${spot.address}</p>
-    `;
-    PARKING_LIST.appendChild(card);
-}
-
-// Filter Parking Spots
-function filterParkingSpots() {
-    const filterValue = TYPE_FILTER.value;
-    const filteredSpots = filterValue === 'all' 
-        ? state.parkingData 
-        : state.parkingData.filter(spot => spot.type === filterValue);
-    
-    displayParkingSpots(filteredSpots);
-}
-
-// Clear All Markers
-function clearMarkers() {
-    state.markers.forEach(marker => state.map.removeLayer(marker));
-    state.markers = [];
-}
-
-// Clear Parking List
-function clearParkingList() {
-    PARKING_LIST.innerHTML = '';
-}
-
-// Zoom to Show All Markers
-function zoomToMarkers() {
-    const markerGroup = new L.featureGroup(state.markers);
-    state.map.fitBounds(markerGroup.getBounds().pad(0.2));
-}
-
-// Display Error Message
-function displayError() {
-    PARKING_LIST.innerHTML = `
-        <div class="error-message">
-            <p>⚠️ Unable to load parking data. Please try again later.</p>
-        </div>
-    `;
-}
-
-// Display No Results Message
-function displayNoResults() {
-    PARKING_LIST.innerHTML = `
-        <div class="no-results">
-            <p>No parking spots found matching your criteria.</p>
-        </div>
-    `;
-}
-
-// Toggle Theme
-function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    document.documentElement.setAttribute('data-theme', newTheme);
-    THEME_TOGGLE.textContent = newTheme === 'dark' ? '☀️ LIGHT MODE' : '🌙 DARK MODE';
-    
-    // Save preference to localStorage
-    localStorage.setItem('themePreference', newTheme);
-}
-
-// Set Initial Theme
-function setInitialTheme() {
-    const savedTheme = localStorage.getItem('themePreference') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    THEME_TOGGLE.textContent = savedTheme === 'dark' ? '☀️ LIGHT MODE' : '🌙 DARK MODE';
-}
-
-// Setup Event Listeners
-function setupEventListeners() {
-    TYPE_FILTER.addEventListener('change', filterParkingSpots);
-    THEME_TOGGLE.addEventListener('click', toggleTheme);
-}
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    setInitialTheme();
-    initApp();
+  function displayErrorMessage(message) {
+      const container = document.getElementById('parking-cards-container');
+      container.innerHTML = `<p class="error-message">${message}</p>`;
+  }
 });

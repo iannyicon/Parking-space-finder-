@@ -1,137 +1,268 @@
-/* Base Styles */
+/* ===== Base Styles ===== */
 :root {
-    --bg-color: #f5f5f5;
-    --text-color: #000000;
-    --primary-color: #006400;
-    --secondary-color: #228B22;
-    --card-bg: #ffffff;
-    --font-bold: 700;
-    --border-radius: 8px;
-    --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  /* Light theme colors (default) */
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --header-bg: #f8f9fa;
+  --accent-color: #4a934a;
+  --border-color: #e0e0e0;
+  --card-bg: #ffffff;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] {
-    --bg-color: #121212;
-    --text-color: #FFFFFF;
-    --primary-color: #32CD32;
-    --secondary-color: #008000;
-    --card-bg: #1E1E1E;
-    --box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  /* Dark theme colors */
+  --bg-color: #1a1a1a;
+  --text-color: #f8f9fa;
+  --header-bg: #2d2d2d;
+  --accent-color: #5cb85c;
+  --border-color: #444;
+  --card-bg: #2d2d2d;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Accessibility Improvements */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
-
-/* Layout */
+/* ===== Global Styles ===== */
 body {
-    font-family: 'Arial Black', Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-weight: var(--font-bold);
-    line-height: 1.6;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}
+
+/* ===== Header Styles ===== */
+header {
+  background-color: var(--header-bg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
 }
 
-/* Header */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 3px solid var(--primary-color);
-    padding-bottom: 10px;
+.logo {
+  margin: 0 auto;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  text-decoration: none;
+  padding: 0.5rem 0;
 }
 
-/* Controls */
-.controls {
-    margin-bottom: 20px;
+/* ===== Theme Toggle Styles ===== */
+.theme-toggle {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  color: var(--text-color);
 }
 
-.filter {
-    display: flex;
-    gap: 10px;
+.theme-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: translateY(-50%) scale(1.1);
 }
 
-#typeFilter {
-    padding: 12px;
-    border: 3px solid var(--primary-color);
-    border-radius: var(--border-radius);
-    font-weight: var(--font-bold);
-    background-color: var(--card-bg);
-    color: var(--text-color);
+[data-theme="dark"] .theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Map */
-.map-container {
-    width: 100%;
-    height: 500px;
-    margin-bottom: 20px;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    border: 3px solid var(--primary-color);
-    box-shadow: var(--box-shadow);
+.toggle-icon {
+  transition: transform 0.3s ease;
 }
 
-/* Results */
-.results {
-    margin-top: 20px;
-    flex-grow: 1;
+.theme-toggle:hover .toggle-icon {
+  transform: rotate(15deg);
 }
 
-#parkingList {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+/* ===== Main Content Styles ===== */
+main {
+  padding: 1rem 0 3rem;
+}
+
+/* ===== Parking List Styles ===== */
+.section-title, .category-title {
+  text-align: center;
+  margin: 2rem 0 1.5rem;
+  color: var(--accent-color);
+  font-size: 1.5rem;
+}
+
+/* ===== Parking Cards Grid ===== */
+.parking-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .parking-card {
-    background: var(--card-bg);
-    padding: 20px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    border-left: 5px solid var(--primary-color);
-    transition: transform 0.2s ease;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .parking-card:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Footer */
-footer {
-    margin-top: 40px;
-    text-align: center;
-    padding: 20px 0;
-    border-top: 1px solid var(--primary-color);
+.parking-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
 }
 
-/* Responsive Design */
+.parking-info {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.parking-info h3 {
+  margin: 0 0 0.5rem;
+  color: var(--accent-color);
+  font-size: 1.1rem;
+}
+
+.parking-info p {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+}
+
+.navigate-btn {
+  margin-top: auto;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.navigate-btn:hover {
+  background-color: #3a7a3a;
+}
+
+[data-theme="dark"] .navigate-btn:hover {
+  background-color: #4ecc4e;
+}
+
+/* ===== Slideshow Styles ===== */
+.category-section {
+  margin: 3rem auto;
+  max-width: 1200px;
+  padding: 0 1.5rem;
+}
+
+.slideshow-container {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.slide {
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.slide-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.slide-name {
+  margin: 0.5rem 0;
+  color: var(--accent-color);
+  font-size: 1.3rem;
+}
+
+/* ===== Loading and Error Messages ===== */
+.loading-message, .error-message {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  grid-column: 1 / -1;
+}
+
+.error-message {
+  color: #dc3545;
+}
+
+/* ===== Responsive Adjustments ===== */
 @media (max-width: 768px) {
-    #map {
-        height: 350px;
-    }
-    
-    header {
-        flex-direction: column;
-        gap: 15px;
-    }
+  .parking-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .parking-image {
+    height: 150px;
+  }
+
+  .slideshow-container {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .parking-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-title, .category-title {
+    font-size: 1.3rem;
+    padding: 0 1rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .theme-toggle {
+    font-size: 1.3rem;
+    width: 2.2rem;
+    height: 2.2rem;
+  }
 }
