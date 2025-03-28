@@ -9,7 +9,11 @@
       "distance": "0.5 km",
       "capacity": 120,
       "security": true,
-      "image": "./images/westgate.jpg"
+      "image": "./images/westgate.jpg",
+      "coordinates": {
+        "lat": -1.2649,
+        "lng": 36.8065
+      }
     },
     {
       "id": 2,
@@ -20,7 +24,11 @@
       "distance": "12 km",
       "capacity": 500,
       "security": true,
-      "image": "./images/jkia.jpg"
+      "image": "./images/jkia.jpg",
+      "coordinates": {
+        "lat": -1.3192,
+        "lng": 36.9278
+      }
     },
     {
       "id": 3,
@@ -31,7 +39,11 @@
       "distance": "8 km",
       "capacity": 80,
       "security": false,
-      "image": "./images/Two Rivers Mall.jpg"
+      "image": "./images/Two Rivers Mall.jpg",
+      "coordinates": {
+        "lat": -1.2086,
+        "lng": 36.8233
+      }
     },
     {
       "id": 4,
@@ -42,7 +54,11 @@
       "distance": "3 km",
       "capacity": 60,
       "security": true,
-      "image": "./images/Nairobi National Museum.jpg"
+      "image": "./images/Nairobi National Museum.jpg",
+      "coordinates": {
+        "lat": -1.2654,
+        "lng": 36.8134
+      }
     },
     {
       "id": 5,
@@ -53,7 +69,11 @@
       "distance": "1 km",
       "capacity": 40,
       "security": true,
-      "image": "./images/Uhuru Park.jpg"
+      "image": "./images/Uhuru Park.jpg",
+      "coordinates": {
+        "lat": -1.2864,
+        "lng": 36.8172
+      }
     },
     {
       "id": 6,
@@ -64,7 +84,11 @@
       "distance": "7 km",
       "capacity": 200,
       "security": true,
-      "image": "./images/Village Market Underground.jpg"
+      "image": "./images/Village Market Underground.jpg",
+      "coordinates": {
+        "lat": -1.2103,
+        "lng": 36.8256
+      }
     },
     {
       "id": 7,
@@ -75,7 +99,11 @@
       "distance": "6 km",
       "capacity": 150,
       "security": true,
-      "image": "./images/Garden City Mall.jpg"
+      "image": "./images/Garden City Mall.jpg",
+      "coordinates": {
+        "lat": -1.2207,
+        "lng": 36.8943
+      }
     },
     {
       "id": 8,
@@ -86,7 +114,11 @@
       "distance": "0.8 km",
       "capacity": 300,
       "security": true,
-      "image": "./images/kicc.jpg"
+      "image": "./images/kicc.jpg",
+      "coordinates": {
+        "lat": -1.2889,
+        "lng": 36.8236
+      }
     },
     {
       "id": 9,
@@ -97,7 +129,11 @@
       "distance": "10 km",
       "capacity": 100,
       "security": true,
-      "image": "./images/The Hub Karen.jpg"
+      "image": "./images/The Hub Karen.jpg",
+      "coordinates": {
+        "lat": -1.3196,
+        "lng": 36.7087
+      }
     },
     {
       "id": 10,
@@ -108,7 +144,11 @@
       "distance": "4 km",
       "capacity": 250,
       "security": true,
-      "image": "./images/Sarit Centre.jpg"
+      "image": "./images/Sarit Centre.jpg",
+      "coordinates": {
+        "lat": -1.2642,
+        "lng": 36.8023
+      }
     }
   ]
 }

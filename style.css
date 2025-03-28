@@ -60,12 +60,17 @@ header {
   padding: 0.5rem 0;
 }
 
-/* ===== Theme Toggle Styles ===== */
-.theme-toggle {
+.header-controls {
   position: absolute;
   right: 1.5rem;
   top: 50%;
   transform: translateY(-50%);
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ===== Theme Toggle Styles ===== */
+.theme-toggle, .location-btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -80,16 +85,17 @@ header {
   color: var(--text-color);
 }
 
-.theme-toggle:hover {
+.theme-toggle:hover, .location-btn:hover {
   background-color: rgba(0, 0, 0, 0.1);
-  transform: translateY(-50%) scale(1.1);
+  transform: scale(1.1);
 }
 
-[data-theme="dark"] .theme-toggle:hover {
+[data-theme="dark"] .theme-toggle:hover,
+[data-theme="dark"] .location-btn:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.toggle-icon {
+.toggle-icon, .location-icon {
   transition: transform 0.3s ease;
 }
 
@@ -260,7 +266,7 @@ main {
     font-size: 1.5rem;
   }
 
-  .theme-toggle {
+  .theme-toggle, .location-btn {
     font-size: 1.3rem;
     width: 2.2rem;
     height: 2.2rem;
