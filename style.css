@@ -1,76 +1,232 @@
-/* ===== Base Styles ===== */
+/* ===== Base Styles & Variables ===== */
 :root {
-  /* Light theme colors (default) */
-  --bg-color: #ffffff;
+  /* Light theme */
+  --bg-color: #f8f9fa;
   --text-color: #333333;
-  --header-bg: #f8f9fa;
+  --header-bg: #ffffff;
   --accent-color: #4a934a;
   --border-color: #e0e0e0;
   --card-bg: #ffffff;
-  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  --hero-bg: linear-gradient(135deg, #4a934a 0%, #3a7a3a 100%);
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors */
+  /* Dark theme */
   --bg-color: #1a1a1a;
   --text-color: #f8f9fa;
   --header-bg: #2d2d2d;
   --accent-color: #5cb85c;
   --border-color: #444;
   --card-bg: #2d2d2d;
-  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  --hero-bg: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
 }
 
-/* ===== Global Styles ===== */
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* ===== Global Reset & Base Styles ===== */
+* {
   margin: 0;
   padding: 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-/* ===== Header Styles ===== */
-header {
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Typography ===== */
+h1, h2, h3 {
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+}
+
+/* ===== Layout Components ===== */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+/* Header Styles */
+.main-header {
   background-color: var(--header-bg);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: var(--space-sm) 0;
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
-.container {
+.header-content {
   display: flex;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  position: relative;
+  justify-content: space-between;
 }
 
 .logo {
-  margin: 0 auto;
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--accent-color);
   text-decoration: none;
-  padding: 0.5rem 0;
 }
 
 .header-controls {
-  position: absolute;
-  right: 1.5rem;
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
-  gap: 0.5rem;
+  gap: var(--space-xs);
 }
 
-/* ===== Theme Toggle Styles ===== */
-.theme-toggle, .location-btn {
+/* Hero Section */
+.hero {
+  background: var(--hero-bg);
+  color: white;
+  padding: var(--space-xl) 0;
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-sm);
+}
+
+.hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Main Content Sections */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.section-title {
+  color: var(--accent-color);
+  font-size: 1.8rem;
+}
+
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.sort-select {
+  padding: var(--space-xs);
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+/* Parking Cards Grid */
+.parking-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.parking-card {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.parking-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.parking-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.parking-info {
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.parking-info h3 {
+  color: var(--accent-color);
+  font-size: 1.2rem;
+}
+
+.parking-meta {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--space-xs) 0;
+}
+
+.parking-amenities {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  margin: var(--space-sm) 0;
+}
+
+.amenity-tag {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+/* Buttons & Interactive Elements */
+.btn {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: #3a7a3a;
+}
+
+[data-theme="dark"] .btn:hover {
+  background-color: #4ecc4e;
+}
+
+.icon-btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -85,112 +241,18 @@ header {
   color: var(--text-color);
 }
 
-.theme-toggle:hover, .location-btn:hover {
+.icon-btn:hover {
   background-color: rgba(0, 0, 0, 0.1);
   transform: scale(1.1);
 }
 
-[data-theme="dark"] .theme-toggle:hover,
-[data-theme="dark"] .location-btn:hover {
+[data-theme="dark"] .icon-btn:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.toggle-icon, .location-icon {
-  transition: transform 0.3s ease;
-}
-
-.theme-toggle:hover .toggle-icon {
-  transform: rotate(15deg);
-}
-
-/* ===== Main Content Styles ===== */
-main {
-  padding: 1rem 0 3rem;
-}
-
-/* ===== Parking List Styles ===== */
-.section-title, .category-title {
-  text-align: center;
-  margin: 2rem 0 1.5rem;
-  color: var(--accent-color);
-  font-size: 1.5rem;
-}
-
-/* ===== Parking Cards Grid ===== */
-.parking-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  padding: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.parking-card {
-  background-color: var(--card-bg);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: var(--card-shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.parking-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.parking-image {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.parking-info {
-  padding: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.parking-info h3 {
-  margin: 0 0 0.5rem;
-  color: var(--accent-color);
-  font-size: 1.1rem;
-}
-
-.parking-info p {
-  margin: 0.3rem 0;
-  font-size: 0.85rem;
-}
-
-.navigate-btn {
-  margin-top: auto;
-  width: 100%;
-  padding: 0.5rem;
-  background-color: var(--accent-color);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-}
-
-.navigate-btn:hover {
-  background-color: #3a7a3a;
-}
-
-[data-theme="dark"] .navigate-btn:hover {
-  background-color: #4ecc4e;
-}
-
-/* ===== Slideshow Styles ===== */
-.category-section {
-  margin: 3rem auto;
-  max-width: 1200px;
-  padding: 0 1.5rem;
+/* Slideshow Styles */
+.featured-section {
+  margin-bottom: var(--space-xl);
 }
 
 .slideshow-container {
@@ -205,7 +267,7 @@ main {
 .slide {
   width: 100%;
   text-align: center;
-  padding: 2rem;
+  padding: var(--space-xl) var(--space-md);
   box-sizing: border-box;
 }
 
@@ -214,19 +276,57 @@ main {
   max-height: 400px;
   object-fit: cover;
   border-radius: 6px;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-md);
 }
 
 .slide-name {
-  margin: 0.5rem 0;
+  margin: var(--space-sm) 0;
   color: var(--accent-color);
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 
-/* ===== Loading and Error Messages ===== */
+.slideshow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.slideshow-btn:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.prev-btn {
+  left: var(--space-md);
+}
+
+.next-btn {
+  right: var(--space-md);
+}
+
+/* Footer */
+.main-footer {
+  background-color: var(--header-bg);
+  padding: var(--space-md) 0;
+  text-align: center;
+  margin-top: auto;
+}
+
+/* Utility Classes */
 .loading-message, .error-message {
   text-align: center;
-  padding: 2rem;
+  padding: var(--space-xl);
   font-size: 1.1rem;
   grid-column: 1 / -1;
 }
@@ -235,20 +335,20 @@ main {
   color: #dc3545;
 }
 
-/* ===== Responsive Adjustments ===== */
+/* Responsive Design */
 @media (max-width: 768px) {
   .parking-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
-    padding: 0 1rem;
+    gap: var(--space-sm);
+    padding: 0 var(--space-sm);
   }
   
-  .parking-image {
-    height: 150px;
+  .hero {
+    padding: var(--space-lg) 0;
   }
-
-  .slideshow-container {
-    max-width: 90%;
+  
+  .hero h2 {
+    font-size: 2rem;
   }
 }
 
@@ -257,18 +357,109 @@ main {
     grid-template-columns: 1fr;
   }
   
-  .section-title, .category-title {
-    font-size: 1.3rem;
-    padding: 0 1rem;
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
   }
-
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
   .logo {
     font-size: 1.5rem;
   }
-
-  .theme-toggle, .location-btn {
+  
+  .icon-btn {
     font-size: 1.3rem;
     width: 2.2rem;
     height: 2.2rem;
   }
+}
+/* Admin Section Styles */
+.admin-section {
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.admin-controls {
+  margin-bottom: var(--space-md);
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  margin: 5% auto;
+  padding: var(--space-md);
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: var(--space-sm);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"] {
+  width: 100%;
+  padding: var(--space-xs);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-weight: normal;
+}
+
+/* Edit/Delete buttons on cards */
+.parking-card .admin-actions {
+  display: flex;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+.parking-card .admin-actions button {
+  flex: 1;
+  padding: 0.3rem;
+  font-size: 0.9rem;
 }
